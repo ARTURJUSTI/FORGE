@@ -1,1 +1,324 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#111214" />
+
+  <title>FORGE — Treino & Progresso</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+<div class="layout">
+
+  <!-- CABEÇALHO -->
+  <header class="topbar">
+    <a class="brand" href="#inicio">
+      FORGE<span>.</span>
+      <small>TRAINING CLUB</small>
+    </a>
+
+    <nav class="nav" aria-label="Navegação principal">
+      <a href="#treinos">Treinos</a>
+      <a href="#rotina">Rotina</a>
+      <a href="#progresso">Progresso</a>
+      <a href="#timer">Descanso</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- INÍCIO -->
+    <section class="hero" id="inicio" style="margin-top:0">
+      <div>
+        <div class="eyebrow">
+          Disciplina • Consistência • Evolução
+        </div>
+
+        <h1>
+          FORJE SUA<br>
+          <span>EVOLUÇÃO.</span>
+        </h1>
+
+        <p>
+          Treine com intenção. Acompanhe seu ritmo,
+          mantenha a constância e construa progresso
+          um treino de cada vez.
+        </p>
+
+        <a class="btn" href="#treinos">
+          EXPLORAR TREINOS ↘
+        </a>
+      </div>
+
+      <div class="hero-mark" aria-hidden="true">F/</div>
+    </section>
+
+    <!-- ESTATÍSTICAS -->
+    <div class="stats" aria-label="Resumo">
+
+      <div class="stat">
+        <div class="stat-label">Treinos concluídos</div>
+        <div class="stat-number" id="stat-workouts">
+          0<span> / 7</span>
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-label">Exercícios na biblioteca</div>
+        <div class="stat-number" id="stat-exercises">18</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-label">Registros de carga</div>
+        <div class="stat-number" id="stat-records">0</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-label">Meta semanal</div>
+        <div class="stat-number">4<span> dias</span></div>
+      </div>
+
+    </div>
+
+    <!-- TREINOS -->
+    <section id="treinos">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Biblioteca</div>
+          <h2>ESCOLHA SEU TREINO</h2>
+          <p>
+            Filtre por grupo muscular e consulte
+            a sugestão de séries.
+          </p>
+        </div>
+      </div>
+
+      <div class="filters" id="filters"
+           role="group"
+           aria-label="Filtrar exercícios">
+
+        <button class="filter active" data-filter="Todos">
+          Todos
+        </button>
+
+        <button class="filter" data-filter="Peito">
+          Peito
+        </button>
+
+        <button class="filter" data-filter="Costas">
+          Costas
+        </button>
+
+        <button class="filter" data-filter="Pernas">
+          Pernas
+        </button>
+
+        <button class="filter" data-filter="Ombros">
+          Ombros
+        </button>
+
+        <button class="filter" data-filter="Braços">
+          Braços
+        </button>
+      </div>
+
+      <div class="exercise-grid" id="exercise-grid"></div>
+    </section>
+
+    <!-- ROTINA -->
+    <section id="rotina">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Planejamento</div>
+          <h2>ROTINA SEMANAL</h2>
+          <p>
+            Marque os dias em que concluiu a sessão.
+            A seleção fica salva neste navegador.
+          </p>
+        </div>
+
+        <button class="btn secondary small" id="reset-week">
+          Reiniciar semana
+        </button>
+      </div>
+
+      <div class="routine-grid" id="routine-grid"></div>
+
+      <p class="notice">
+        Sugestão demonstrativa. Ajuste os dias,
+        volume e exercícios à sua experiência,
+        recuperação e orientação profissional.
+      </p>
+    </section>
+
+    <!-- PROGRESSO -->
+    <section id="progresso">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Consistência</div>
+          <h2>SEU PROGRESSO</h2>
+          <p>
+            Registre cargas para acompanhar seus próprios treinos.
+          </p>
+        </div>
+      </div>
+
+      <div class="progress-layout">
+
+        <!-- META -->
+        <div class="panel">
+          <h3>Meta semanal</h3>
+
+          <div class="progress-line">
+            <span>Treinos marcados</span>
+            <b id="progress-label">0 de 4</b>
+          </div>
+
+          <div class="track">
+            <div class="fill" id="weekly-fill"
+                 style="width:0%"></div>
+          </div>
+
+          <div class="progress-line">
+            <span>Semana concluída</span>
+            <b id="weekly-percent">0%</b>
+          </div>
+
+          <p class="notice">
+            A meta é um objetivo ajustável, não uma obrigação.
+            Descanso também faz parte do treinamento.
+          </p>
+
+          <div class="toast" id="progress-toast"
+               aria-live="polite"></div>
+        </div>
+
+        <!-- REGISTROS -->
+        <div class="panel">
+          <h3>Adicionar registro de carga</h3>
+
+          <form id="record-form">
+            <div class="form-row">
+
+              <select id="record-exercise"
+                      aria-label="Exercício">
+                <option>Supino reto</option>
+                <option>Remada baixa</option>
+                <option>Agachamento</option>
+                <option>Desenvolvimento</option>
+                <option>Rosca direta</option>
+                <option>Tríceps na polia</option>
+              </select>
+
+              <input
+                id="record-weight"
+                type="number"
+                min="0"
+                max="1000"
+                step="0.5"
+                placeholder="Carga (kg)"
+                required
+                aria-label="Carga em quilogramas"
+              />
+
+              <input
+                id="record-reps"
+                type="number"
+                min="1"
+                max="200"
+                step="1"
+                placeholder="Repetições"
+                required
+                aria-label="Número de repetições"
+              />
+
+              <button class="btn" type="submit">
+                + Registrar
+              </button>
+
+            </div>
+          </form>
+
+          <ul class="record-list" id="record-list"></ul>
+
+          <div class="toast" id="record-toast"
+               aria-live="polite"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CRONÔMETRO -->
+    <section id="timer">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Intervalo</div>
+          <h2>TIMER DE DESCANSO</h2>
+          <p>
+            Use um intervalo adequado ao exercício
+            e ao seu objetivo.
+          </p>
+        </div>
+      </div>
+
+      <div class="panel timer">
+        <div>
+          <div class="kicker">Tempo restante</div>
+
+          <div class="timer-display"
+               id="timer-display"
+               role="timer"
+               aria-live="off">
+            01:30
+          </div>
+
+          <p class="timer-note" id="timer-status"
+             aria-live="polite">
+            Pronto quando você estiver.
+          </p>
+        </div>
+
+        <div class="timer-controls">
+
+          <button class="btn secondary" data-seconds="60">
+            60 s
+          </button>
+
+          <button class="btn secondary" data-seconds="90">
+            90 s
+          </button>
+
+          <button class="btn secondary" data-seconds="120">
+            120 s
+          </button>
+
+          <button class="btn" id="timer-toggle">
+            Iniciar
+          </button>
+
+          <button class="btn secondary" id="timer-reset">
+            Zerar
+          </button>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- RODAPÉ -->
+  <footer>
+    FORGE TRAINING CLUB • Feito para acompanhar sua consistência.
+  </footer>
+
+</div>
+
+<!-- JAVASCRIPT -->
+<script src="main.js" defer></script>
+
+</body>
+</html>
